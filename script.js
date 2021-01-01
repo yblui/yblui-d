@@ -1,8 +1,6 @@
-var sco = 0;
-var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+var sco = 0, alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
     "V", "W", "X", "Y", "Z"
-]
-var gameover=false;
+], gameover=false;
 document.getElementById("a").innerHTML = alphabet[Math.floor(Math.random() * 26)]
 document.getElementById("b").innerHTML = alphabet.join("").replace(document.getElementById("a").innerHTML, "").split("")[
     Math.floor(Math.random() * 25)]
@@ -161,7 +159,7 @@ if(gameover==false){
     if (Number(document.getElementById("smz").innerHTML) <= 0) {
         document.getElementById("tbl").style.display="none";
 gameover=true;
-document.getElementById("body").innerHTML+="<div id='dfrq'>×îÖÕµÃ·Ö<br/><br/><b id='zzdf' onclick='history.go(0)'>"+sco+"</b></div>";
+document.getElementById("body").innerHTML+="<div id='dfrq'>æœ€ç»ˆå¾—åˆ†<br/><br/><b id='zzdf' onclick='history.go(0)'>"+sco+"</b></div>";
 document.getElementById("fxs").style.opacity="0.5";
 clearInterval(sit)
     }
