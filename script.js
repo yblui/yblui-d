@@ -107,18 +107,13 @@ if(gameover==false){
         document.getElementById("smz").innerHTML = Number(document.getElementById("smz").innerHTML) - 1
     }}
 }
-var sit=setInterval(function() {
-if(gameover==false){
-    document.getElementById("xss").innerHTML = sco;
-    document.getElementById("at").innerHTML = (Number(document.getElementById("at").innerHTML) - 1)
-    document.getElementById("bt").innerHTML = (Number(document.getElementById("bt").innerHTML) - 1)
-    document.getElementById("ct").innerHTML = (Number(document.getElementById("ct").innerHTML) - 1)
-    document.getElementById("dt").innerHTML = (Number(document.getElementById("dt").innerHTML) - 1)
-    document.getElementById("et").innerHTML = (Number(document.getElementById("et").innerHTML) - 1)
-    document.getElementById("ft").innerHTML = (Number(document.getElementById("ft").innerHTML) - 1)
-    document.getElementById("gt").innerHTML = (Number(document.getElementById("gt").innerHTML) - 1)
-    document.getElementById("ht").innerHTML = (Number(document.getElementById("ht").innerHTML) - 1)
-    document.getElementById("it").innerHTML = (Number(document.getElementById("it").innerHTML) - 1)
+function lih(liv){
+    document.getElementById(liv).innerHTML = (Number(document.getElementById(liv).innerHTML) - 1)
+}
+var sit = setInterval(function() {
+    if (gameover == false) {
+        document.getElementById("xss").innerHTML = sco;
+        ["at","bt","ct","dt","et","ft","gt","ht","it"].forEach(lih)
     if (Number(document.getElementById("at").innerHTML) <= 0) {
         document.getElementById("smz").innerHTML = Number(document.getElementById("smz").innerHTML) - 1;
         document.getElementById("at").innerHTML = 9
