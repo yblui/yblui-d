@@ -1,49 +1,188 @@
-#a,#b,#c,#d,#e,#f,#g,#h,#i{
-  font-size:60pt;
-  font-family:Consolas,monospace;
-  padding-left:30px;
-  padding-right:30px;
+body>div:not(.show),
+#countdownLetter:not(.show),
+#countdownSentence:not(.show) {
+    display: none;
 }
-#at,#bt,#ct,#dt,#et,#ft,#gt,#ht,#it{
-  text-align:center;
+
+@font-face {
+    font-family: worldAthletics;
+    src: url("WorldAthleticsHeadline.woff2");
 }
-#xssco{
-  font-size:30pt;
-  background-color:#251E1B;
-  color:white;
-  padding:10px;
+
+html,
+body {
+    font-family: worldAthletics;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    --pink: #bd94ff;
+    --blue: #69d7e1;
+    --orange: #ff873c;
 }
-#xss{
-  font-size:30pt;
-  background-color:#C1963C;
-  color:white;
-  padding:10px;
+
+button {
+    font-family: worldAthletics;
+    text-align: left;
 }
-#smz{
-  background-color:#701010;
-  color:white;
-  font-size:30pt;
-  padding:10px;
+
+#gameOverLetter:not(.show),
+#gameOverSentence:not(.show) {
+    display: none;
 }
-#zzdf{
-  font-size:90px;
-  background-color:#C1963C;
-  color:transparent;
-  padding:30px;
-  text-shadow:0px 0px 3px white;
-  box-shadow:0px 0px 9px #C1963C;
-  margin:60px;
-  border-radius:10px;
+
+.green {
+    color: var(--orange);
 }
-#zzdf:hover{
-  opacity:0.3;
-  cursor:pointer;
+
+h1 {
+    background-color: var(--pink);
+    width: calc(100% - 26px);
+    max-width: 1000px;
+    padding: 10px;
+    margin: 3px;
 }
-#dfrq{
-  text-align:center;
-  font-size:30px;
+
+.grid {
+    display: inline-block;
+    background-color: #111;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    margin: 3px;
+    border: none;
 }
-#fxs{text-align:center;}
-table{
-margin:auto; 
+
+.no {
+    width: 30px;
+    text-align: center;
+}
+
+.large {
+    width: calc(100% - 62px);
+    max-width: 964px;
+}
+
+.bottom {
+    border-top: solid 3px var(--pink);
+    display: inline-block;
+    background-color: #111;
+    color: var(--pink);
+    padding: 10px;
+}
+
+#gameLetter .bottom {
+    border-top: solid 3px var(--blue);
+    color: var(--blue)
+}
+
+#countdownLetter,
+#countdownSentence {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    color: black;
+    padding: 10px;
+    text-align: right;
+}
+
+#countdownLetter {
+    background-color: var(--blue);
+}
+
+#countdownSentence {
+    background-color: var(--orange);
+}
+
+#gameOverLetter {
+    position: absolute;
+    bottom: 10px;
+    width: 100vw;
+    max-width: 1000px;
+    text-align: left;
+}
+
+#gameOverLetter h1 {
+    background-color: var(--blue);
+}
+
+.main {
+    background-color: #111;
+    color: white;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.key {
+    font-size: 50px;
+}
+
+#gameLetter {
+    text-align: center;
+}
+
+.score {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    text-align: left;
+}
+
+.name {
+    width: 300px;
+    color: black;
+    padding: 10px;
+    margin: 3px;
+}
+
+#gameLetter .name {
+    background-color: var(--blue);
+}
+
+#gameSentence .name {
+    background-color: var(--orange);
+}
+
+.small {
+    width: 65px;
+}
+
+.big {
+    width: 209px;
+    text-align: right;
+}
+
+.medium {
+    width: 494px;
+}
+
+.fill {
+    width: 862px;
+}
+
+.quit {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 300px;
+    background-color: #111;
+    color: white;
+    padding: 10px;
+}
+
+.quit:not(.show) {
+    display: none;
+}
+
+#sentence {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 200px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    color: white;
 }
