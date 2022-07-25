@@ -10,6 +10,7 @@ const sentences = [
     "The opposite of love is not hate, it's indifference. The opposite of art is not ugliness, it's indifference. The opposite of faith is not heresy, it's indifference. And the opposite of life is not death, it's indifference."
 ], alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
+var leaderboardLetter = [], leaderboardSentence = [];
 
 function playLetter() {
     clearInterval(letterInterval);
@@ -27,25 +28,25 @@ function playLetter() {
     let interval = setInterval(function () {
         document.getElementById("letterReady").innerText = Math.ceil((Number(time) + 3000 - Number(new Date())) / 1000) + " sec(s)";
     }, 30);
+    for (let y of document.getElementsByClassName("timer")) {
+        y.innerText = "9s";
+    }
     setTimeout(function () {
         document.getElementById("quitLetter").classList.add("show")
         clearInterval(interval);
         document.getElementById("countdownLetter").classList.remove("show");
-        for (let y of document.getElementsByClassName("timer")) {
-            y.innerText = "9s";
-        }
         letterInterval = setInterval(function () {
             timeLetter *= 0.99999;
         }, 10)
         timerInterval = setInterval(function () {
             for (let y of document.getElementsByClassName("timer")) {
-                y.innerText = Number(y.innerText.replace("s", "")) - 1 + "s"
+                y.innerText = (Number(y.innerText.replace("s", "")) - .1).toFixed(1) + "s"
                 if (y.innerText == "0s") {
                     document.getElementById("finalScoreLetter").innerText = scoreLetter;
                     document.getElementById("gameOverLetter").classList.add("show");
                 }
             }
-        }, 1000);
+        }, 100);
     }, 3000);
 
     for (let e of document.querySelectorAll("#gameLetter div .key")) {
@@ -73,7 +74,7 @@ function playSentence() {
         date = new Date();
         sentenceInterval = setInterval(function () {
             document.getElementById("sentenceReady").innerText = ((Number(new Date()) - Number(date)) / 1000).toFixed(2) + "s";
-            document.getElementById("speedSentence").innerText = (keysSentence / ((Number(new Date()) - Number(date)) / 1000) * 60).toFixed(3) + "keys per min";
+            document.getElementById("speedSentence").innerText = (keysSentence / ((Number(new Date()) - Number(date)) / 1000) * 60).toFixed(3) + " keys per min";
         }, 10)
         document.getElementById("quitSentence").classList.add("show");
     }, 3000)
@@ -98,13 +99,13 @@ function back() {
 }
 
 function keydown(event) {
-    if (document.getElementById("gameLetter").classList.contains("show")) {
+    if (document.getElementById("gameLetter").classList.contains("show") && document.getElementById("quitLetter").classList.contains("show")) {
         let s = scoreLetter;
         for (let i of document.querySelectorAll("#gameLetter div .key")) {
             if (i.innerText.toLowerCase() == event.key.toLowerCase()) {
                 i.innerText = alphabet[Math.floor(Math.random() * alphabet.length)];
-                i.parentNode.getElementsByClassName("timer")[0].innerText = timeLetter.toFixed(0) + "s"
-                scoreLetter++;
+                scoreLetter += Number(i.parentNode.getElementsByClassName("timer")[0].innerText.replace("s", "")).toFixed(1);
+                i.parentNode.getElementsByClassName("timer")[0].innerText = timeLetter.toFixed(1) + "s"
             }
         }
         if (scoreLetter == s) {
@@ -116,7 +117,7 @@ function keydown(event) {
             document.getElementById("finalScoreLetter").innerText = scoreLetter;
             document.getElementById("gameOverLetter").classList.add("show");
         }
-    } else if (document.getElementById("gameSentence").classList.contains("show")) {
+    } else if (document.getElementById("gameSentence").classList.contains("show") && document.getElementById("quitSentence").classList.contains("show")) {
         for (let x of document.getElementById("sentence").childNodes) {
             if (!x.classList.contains("green")) {
                 if (x.innerText.toLowerCase() == event.key.toLowerCase()) {
@@ -125,6 +126,8 @@ function keydown(event) {
                 }
                 if (keysSentence == document.getElementById("sentence").innerText.length) {
                     clearInterval(sentenceInterval);
+                    document.getElementById("gameOverSentence").classList.add("show");
+                    document.getElementById("finalScoreSentence").innerText=document.getElementById("speedSentence").innerText.replace(" keys per min","")
                 }
                 break;
             }

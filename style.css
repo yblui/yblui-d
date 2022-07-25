@@ -75,6 +75,11 @@ h1 {
     color: var(--blue)
 }
 
+#gameSentence .bottom {
+    border-top: solid 3px var(--orange);
+    color: var(--orange)
+}
+
 #countdownLetter,
 #countdownSentence {
     position: absolute;
@@ -104,6 +109,9 @@ h1 {
 
 #gameOverLetter h1 {
     background-color: var(--blue);
+}
+#gameOverSentence h1 {
+    background-color: var(--orange);
 }
 
 .main {
