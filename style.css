@@ -18,6 +18,7 @@ body {
     --pink: #bd94ff;
     --blue: #69d7e1;
     --orange: #ff873c;
+    --green: #a5fa64;
 }
 
 button {
@@ -80,6 +81,11 @@ h1 {
     color: var(--orange)
 }
 
+#leaderboard .bottom {
+    border-top: solid 3px var(--green);
+    color: var(--green)
+}
+
 #countdownLetter,
 #countdownSentence {
     position: absolute;
@@ -110,8 +116,13 @@ h1 {
 #gameOverLetter h1 {
     background-color: var(--blue);
 }
+
 #gameOverSentence h1 {
     background-color: var(--orange);
+}
+
+#leaderboard h1 {
+    background-color: var(--green);
 }
 
 .main {
@@ -153,6 +164,20 @@ h1 {
 
 #gameSentence .name {
     background-color: var(--orange);
+}
+
+#menu .name {
+    background-color: var(--pink);
+    position: absolute;
+    bottom:10px;
+    left:10px;
+}
+
+input{
+    border:none;
+    background-color: transparent;
+    font-family: worldAthletics;
+    outline: none;
 }
 
 .small {

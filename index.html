@@ -11,14 +11,18 @@
 
 <body>
     <div id="menu" class="show">
-        <label>
-            Your name:
-            <input type="text" />
-        </label>
+        <div class="name">
+            <label>
+                Your name:
+                <input type="text" id="name" placeholder="Enter your name here" />
+            </label>
+        </div>
         <h1>TYPER - TYPE AS FAST AS POSSIBLE</h1>
         <div class="grid no">1</div><button onclick="playLetter();" class="grid large">Play Letter Mode</button>
         <br />
         <div class="grid no">2</div><button onclick="playSentence();" class="grid large">Play Sentence Mode</button>
+        <br />
+        <div class="grid no">3</div><button onclick="viewLeaderboard();" class="grid large">View Leaderboard</button>
         <br />
         <div class="bottom">YBLUI-D</div>
     </div>
@@ -120,6 +124,28 @@
             <br />
             <div class="bottom">YBLUI-D</div>
         </div>
+    </div>
+    <div id="leaderboard">
+        <h1>Leaderboard - Letter Mode</h1>
+        <table id="letterTable">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Gap</th>
+            </tr>
+        </table>
+        <div class="bottom">YBLUI-D</div>
+        <h1>Leaderboard - Sentence Mode</h1>
+        <table id="sentenceTable">
+            <th>
+            <td>No.</td>
+            <td>Name</td>
+            <td>Score</td>
+            <td>Gap</td>
+            </th>
+        </table>
+        <div class="bottom">YBLUI-D</div>
     </div>
     <script src="script.js"></script>
 </body>
