@@ -1,7 +1,7 @@
 const sentences = [
     "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.",
     "You've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.",
-    "Don’t walk in front of me... I may not follow. Don’t walk behind me... I may not lead. Walk beside me... just be my friend.",
+    "Don't walk in front of me... I may not follow. Don't walk behind me... I may not lead. Walk beside me... just be my friend.",
     "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
     "I believe that everything happens for a reason. People change so that you can learn to let go, things go wrong so that you appreciate them when they're right, you believe lies so you eventually learn to trust no one but yourself, and sometimes good things fall apart so better things can fall together.",
     "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.",
@@ -10,8 +10,6 @@ const sentences = [
     "The opposite of love is not hate, it's indifference. The opposite of art is not ugliness, it's indifference. The opposite of faith is not heresy, it's indifference. And the opposite of life is not death, it's indifference."
 ], alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
-var leaderboardLetter = [], leaderboardSentence = [];
-
 function setCookie(name, value) {
     document.cookie = name + "=" + value.join(",") + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
 }
@@ -19,13 +17,17 @@ function setCookie(name, value) {
 function getCookie(name) {
     let a = document.cookie.split(";");
     for (let b of a) {
-        b = b.split("=")
+        b = b.split("=");
         if (b[0] == name) {
             return b[1].split(",");
         }
     }
+    return null;
 }
 
+var leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
+document.getElementById("letterBest").innerText = (leaderboardLetter != []) ? leaderboardLetter[0].score : "/";
+document.getElementById("sentenceBest").innerText = (leaderboardSentence != []) ? leaderboardSentence[0].score : "/";
 function playLetter() {
     clearInterval(letterInterval);
     clearInterval(timerInterval);
@@ -55,9 +57,18 @@ function playLetter() {
         timerInterval = setInterval(function () {
             for (let y of document.getElementsByClassName("timer")) {
                 y.innerText = (Number(y.innerText.replace("s", "")) - .1).toFixed(1) + "s"
-                if (y.innerText == "0s") {
-                    document.getElementById("finalScoreLetter").innerText = scoreLetter;
+                if (y.innerText == "0.0s") {
+                    livesLetter--;
+                }
+                document.getElementById("livesLetter").innerText = livesLetter;
+                if (livesLetter <= 0) {
+                    document.getElementById("finalScoreLetter").innerText = scoreLetter.toFixed(1);
                     document.getElementById("gameOverLetter").classList.add("show");
+                    leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
+                    leaderboardLetter.sort(function (a, b) { return a - b });
+                    leaderboardLetter.splice(10, 1);
+                    setCookie("letter", leaderboardLetter);
+                    clearInterval(timerInterval);
                 }
             }
         }, 100);
@@ -99,32 +110,25 @@ function viewLeaderboard() {
     document.getElementById("leaderboard").classList.add("show");
     document.getElementById("letterTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
     document.getElementById("sentenceTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
-    for (let i = 0; i < getCookie("letter").length; i++) {
-        let high = getCookie("letter")[0].score;
-        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i - 1) + "</td><td>" + getCookie("letter")[i].name + "</td><td>" + getCookie("letter")[i].score + "</td><td>" + (getCookie("letter")[i].score - high) + "</td>")
+    for (let i = 0; i < leaderboardLetter.length; i++) {
+        let high = leaderboardLetter[0].score;
+        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + (leaderboardLetter[i].score - high) + "</td>")
     }
-    for (let i = 0; i < getCookie("sentence").length; i++) {
-        let high = getCookie("sentence")[0].score;
-        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i - 1) + "</td><td>" + getCookie("sentence")[i].name + "</td><td>" + getCookie("sentence")[i].score + "</td><td>" + (getCookie("sentence")[i].score - high) + "</td>")
+    for (let i = 0; i < leaderboardSentence.length; i++) {
+        let high = leaderboardSentence[0].score;
+        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + (leaderboardSentence[i].score - high) + "</td>")
     }
-}
-
-function quitLetter() {
-    document.getElementById("quitLetter").classList.remove("show");
-    document.getElementById("menu").classList.add("show");
-    document.getElementById("gameLetter").classList.remove("show");
-}
-
-function quitSentence() {
-    document.getElementById("quitSentence").classList.remove("show");
-    document.getElementById("menu").classList.add("show");
-    document.getElementById("gameSentence").classList.remove("show");
 }
 
 function back() {
     document.getElementById("gameLetter").classList.remove("show");
+    document.getElementById("quitLetter").classList.remove("show");
     document.getElementById("gameSentence").classList.remove("show");
+    document.getElementById("quitSentence").classList.remove("show");
+    document.getElementById("leaderboard").classList.remove("show");
     document.getElementById("menu").classList.add("show");
+    document.getElementById("letterBest").innerText = (leaderboardLetter != []) ? leaderboardLetter[0].score : "/";
+    document.getElementById("sentenceBest").innerText = (leaderboardSentence != []) ? leaderboardSentence[0].score : "/";
 }
 
 function keydown(event) {
@@ -133,22 +137,23 @@ function keydown(event) {
         for (let i of document.querySelectorAll("#gameLetter div .key")) {
             if (i.innerText.toLowerCase() == event.key.toLowerCase()) {
                 i.innerText = alphabet[Math.floor(Math.random() * alphabet.length)];
-                scoreLetter += Number(i.parentNode.getElementsByClassName("timer")[0].innerText.replace("s", "")).toFixed(1);
+                scoreLetter += Number(i.parentNode.getElementsByClassName("timer")[0].innerText.replace("s", ""));
                 i.parentNode.getElementsByClassName("timer")[0].innerText = timeLetter.toFixed(1) + "s"
             }
         }
         if (scoreLetter == s) {
             livesLetter--;
         }
-        document.getElementById("scoreLetter").innerText = scoreLetter;
+        document.getElementById("scoreLetter").innerText = scoreLetter.toFixed(1);
         document.getElementById("livesLetter").innerText = livesLetter;
         if (livesLetter <= 0) {
-            document.getElementById("finalScoreLetter").innerText = scoreLetter;
+            document.getElementById("finalScoreLetter").innerText = scoreLetter.toFixed(1);
             document.getElementById("gameOverLetter").classList.add("show");
-            leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": scoreLetter };
+            leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
             leaderboardLetter.sort(function (a, b) { return a - b });
             leaderboardLetter.splice(10, 1);
             setCookie("letter", leaderboardLetter);
+            clearInterval(timerInterval);
         }
     } else if (document.getElementById("gameSentence").classList.contains("show") && document.getElementById("quitSentence").classList.contains("show")) {
         for (let x of document.getElementById("sentence").childNodes) {

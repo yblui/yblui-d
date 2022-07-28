@@ -18,12 +18,28 @@
             </label>
         </div>
         <h1>TYPER - TYPE AS FAST AS POSSIBLE</h1>
-        <div class="grid no">1</div><button onclick="playLetter();" class="grid large">Play Letter Mode</button>
-        <br />
-        <div class="grid no">2</div><button onclick="playSentence();" class="grid large">Play Sentence Mode</button>
-        <br />
-        <div class="grid no">3</div><button onclick="viewLeaderboard();" class="grid large">View Leaderboard</button>
-        <br />
+        <table>
+            <tr>
+                <th>No.</th>
+                <th>&nbsp;</th>
+                <th>Best</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td onclick="playLetter();">Play Letter Mode</td>
+                <td id="letterBest"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td onclick="playSentence();">Play Sentence Mode</td>
+                <td id="sentenceBest"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td onclick="viewLeaderboard();">View the Leaderboard</td>
+                <td>/</td>
+            </tr>
+        </table>
         <div class="bottom">YBLUI-D</div>
     </div>
     <div id="gameLetter">
@@ -50,7 +66,7 @@
             <br />
             <div class="bottom">YBLUI-D</div>
         </div>
-        <button onclick="quitLetter();" class="quit" id="quitLetter">Quit</button>
+        <button onclick="back();" class="quit" id="quitLetter">Quit</button>
         <br />
         <div class="main">
             <span class="key"></span>
@@ -101,7 +117,7 @@
         </div>
     </div>
     <div id="gameSentence">
-        <button onclick="quitSentence();" class="quit" id="quitSentence">Quit</button>
+        <button onclick="back();" class="quit" id="quitSentence">Quit</button>
         <div id="countdownSentence" class="show">
             <span id="sentenceReady">3 secs</span>
         </div>
@@ -112,7 +128,6 @@
             <div class="grid small">Speed</div>
             <div id="speedSentence" class="grid big">0 keys per min</div>
         </div>
-        <button onclick="quitSentence();" class="quit">Quit</button>
         <p id="sentence"></p>
         <div id="gameOverSentence">
             <h1>Congratulations!</h1>
@@ -126,6 +141,7 @@
         </div>
     </div>
     <div id="leaderboard">
+        <button onclick="back();" class="quit show" id="quitLeaderboard">Quit</button>
         <h1>Leaderboard - Letter Mode</h1>
         <table id="letterTable">
             <tr>
