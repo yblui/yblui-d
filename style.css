@@ -207,12 +207,20 @@ input {
     display: none;
 }
 
-#sentence {
+#sentence,
+.light {
     text-align: center;
     font-size: 30px;
-    margin-top: 200px;
     margin-left: 10vw;
     margin-right: 10vw;
+}
+
+.light {
+    margin-top: 190px;
+    color: lightgray;
+}
+
+#sentence {
     color: white;
 }
 

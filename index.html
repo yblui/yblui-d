@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" onkeydown="keydown(event);">
+<html lang="en-US" onkeypress="keydown(event);">
 
 <head>
     <meta charset="utf-8" />
@@ -47,7 +47,7 @@
             <span id="letterReady">3 secs</span>
         </div>
         <div id="gameOverLetter">
-            <h1>Game over!</h1>
+            <h1 id="letterHeading">Game over!</h1>
             <div class="grid small">Score</div>
             <div id="finalScoreLetter" class="grid fill"></div>
             <br />
@@ -71,49 +71,49 @@
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
         </div>
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
         </div>
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
-        </div>
-        <br />
-        <div class="main">
-            <span class="key"></span>
-            <br />
-            <span class="timer">9s</span>
-        </div>
-        <div class="main">
-            <span class="key"></span>
-            <br />
-            <span class="timer">9s</span>
-        </div>
-        <div class="main">
-            <span class="key"></span>
-            <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
         </div>
         <br />
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
         </div>
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
         </div>
         <div class="main">
             <span class="key"></span>
             <br />
-            <span class="timer">9s</span>
+            <span class="timer">9.0s</span>
+        </div>
+        <br />
+        <div class="main">
+            <span class="key"></span>
+            <br />
+            <span class="timer">9.0s</span>
+        </div>
+        <div class="main">
+            <span class="key"></span>
+            <br />
+            <span class="timer">9.0s</span>
+        </div>
+        <div class="main">
+            <span class="key"></span>
+            <br />
+            <span class="timer">9.0s</span>
         </div>
     </div>
     <div id="gameSentence">
@@ -122,7 +122,7 @@
             <span id="sentenceReady">3 secs</span>
         </div>
         <div id="gameOverSentence">
-            <h1>Congratulations!</h1>
+            <h1 id="sentenceHeading">Congratulations!</h1>
             <div class="grid small">Score</div>
             <div id="finalScoreSentence" class="grid fill"></div>
             <br />
@@ -138,6 +138,7 @@
             <div class="grid small">Speed</div>
             <div id="speedSentence" class="grid big">0 keys per min</div>
         </div>
+        <p class="light">Type the sentence below:</p>
         <p id="sentence"></p>
     </div>
     <div id="leaderboard">

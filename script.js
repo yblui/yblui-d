@@ -11,23 +11,42 @@ const sentences = [
 ], alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
 function setCookie(name, value) {
-    document.cookie = name + "=" + value.join(",") + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
+    let a = [];
+    for (let b of value) {
+        a[a.length] = JSON.stringify(b);
+    }
+    document.cookie = name + "=" + a.join(",") + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
 }
 
 function getCookie(name) {
     let a = document.cookie.split(";");
+    let e = [];
     for (let b of a) {
         b = b.split("=");
         if (b[0] == name) {
-            return b[1].split(",");
+            let d = b[1].split(",");
+            for (let c of d) {
+                e[e.length] = JSON.parse(c);
+            }
+            return e;
         }
     }
     return null;
 }
-
 var leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
 document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
 document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
+function timeConvert(time) {
+    let h = ((Math.floor(time / 3600000) < 10) ? "0" : "") + Math.floor(time / 3600000) + ":"
+    let m = ((Math.floor(time / 60000) % 60 < 10) ? "0" : "") + Math.floor(time / 60000) % 60 + ":";
+    let s = ((Math.floor(time / 1000) % 60 < 10) ? "0" : "") + Math.floor(time / 1000) % 60 + ".";
+    let ms = ((Math.floor(time / 10) % 100 < 10) ? "0" : "") + Math.floor(time / 10) % 100;
+    let str = h + m + s + ms;
+    while (/^0[0-9\:]/.test(str) || /^\:/.test(str)) {
+        str = str.replace(/^[0\:]/, "");
+    }
+    return str;
+}
 function playLetter() {
     clearInterval(letterInterval);
     clearInterval(timerInterval);
@@ -63,6 +82,7 @@ function playLetter() {
                 document.getElementById("livesLetter").innerText = livesLetter;
                 if (livesLetter <= 0) {
                     document.getElementById("finalScoreLetter").innerText = scoreLetter.toFixed(1);
+                    document.getElementById("letterHeading").innerText = (leaderboardLetter.length == 0 || leaderboardLetter[0].score < scoreLetter) ? "You broke the record!" : "Game over!";
                     document.getElementById("gameOverLetter").classList.add("show");
                     leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
                     leaderboardLetter.sort(function (a, b) { return a - b });
@@ -101,7 +121,7 @@ function playSentence() {
         clearInterval(interval);
         date = new Date();
         sentenceInterval = setInterval(function () {
-            document.getElementById("sentenceReady").innerText = ((Number(new Date()) - Number(date)) / 1000).toFixed(2) + "s";
+            document.getElementById("sentenceReady").innerText = timeConvert(Number(new Date()) - Number(date));
             document.getElementById("speedSentence").innerText = (keysSentence / ((Number(new Date()) - Number(date)) / 1000) * 60).toFixed(3) + " keys per min";
         }, 10)
         document.getElementById("quitSentence").classList.add("show");
@@ -115,11 +135,11 @@ function viewLeaderboard() {
     document.getElementById("sentenceTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
     for (let i = 0; i < leaderboardLetter.length; i++) {
         let high = leaderboardLetter[0].score;
-        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + (leaderboardLetter[i].score - high) + "</td>")
+        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + (leaderboardLetter[i].score - high).toFixed(1) + "</td>")
     }
     for (let i = 0; i < leaderboardSentence.length; i++) {
         let high = leaderboardSentence[0].score;
-        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + (leaderboardSentence[i].score - high) + "</td>")
+        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + (leaderboardSentence[i].score - high).toFixed(3) + "</td>")
     }
 }
 
@@ -130,8 +150,8 @@ function back() {
     document.getElementById("quitSentence").classList.remove("show");
     document.getElementById("leaderboard").classList.remove("show");
     document.getElementById("menu").classList.add("show");
-    document.getElementById("letterBest").innerText = (leaderboardLetter.length!=0) ? leaderboardLetter[0].score : "/";
-    document.getElementById("sentenceBest").innerText = (leaderboardSentence.length!=0) ? leaderboardSentence[0].score : "/";
+    document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
+    document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
 }
 
 function keydown(event) {
@@ -152,6 +172,7 @@ function keydown(event) {
         if (livesLetter <= 0) {
             document.getElementById("finalScoreLetter").innerText = scoreLetter.toFixed(1);
             document.getElementById("gameOverLetter").classList.add("show");
+            document.getElementById("letterHeading").innerText = (leaderboardLetter.length == 0 || leaderboardLetter[0].score < scoreLetter) ? "You broke the record!" : "Game over!";
             leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
             leaderboardLetter.sort(function (a, b) { return a.score - b.score });
             leaderboardLetter.splice(10, 1);
@@ -161,7 +182,7 @@ function keydown(event) {
     } else if (document.getElementById("gameSentence").classList.contains("show") && document.getElementById("quitSentence").classList.contains("show") && !document.getElementById("gameOverSentence").classList.contains("show")) {
         for (let x of document.getElementById("sentence").childNodes) {
             if (!x.classList.contains("green")) {
-                if (x.innerText.toLowerCase() == event.key.toLowerCase()) {
+                if (x.innerText.charCodeAt(0) == event.keyCode) {
                     x.classList.add("green");
                     keysSentence++;
                 }
@@ -169,6 +190,7 @@ function keydown(event) {
                     clearInterval(sentenceInterval);
                     document.getElementById("gameOverSentence").classList.add("show");
                     document.getElementById("finalScoreSentence").innerText = document.getElementById("speedSentence").innerText.replace(" keys per min", "")
+                    document.getElementById("sentenceHeading").innerText = (leaderboardSentence.length == 0 || leaderboardSentence[0].score < Number(document.getElementById("finalScoreSentence").innerText)) ? "You broke the record!" : "Congratulations!";
                     leaderboardSentence[leaderboardSentence.length] = { "name": document.getElementById("name").value, "score": Number(document.getElementById("finalScoreSentence").innerText) };
                     leaderboardSentence.sort(function (a, b) { return a.score - b.score });
                     leaderboardSentence.splice(10, 1);
