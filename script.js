@@ -26,8 +26,8 @@ function getCookie(name) {
 }
 
 var leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
-document.getElementById("letterBest").innerText = (leaderboardLetter != []) ? leaderboardLetter[0].score : "/";
-document.getElementById("sentenceBest").innerText = (leaderboardSentence != []) ? leaderboardSentence[0].score : "/";
+document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
+document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
 function playLetter() {
     clearInterval(letterInterval);
     clearInterval(timerInterval);
@@ -69,6 +69,7 @@ function playLetter() {
                     leaderboardLetter.splice(10, 1);
                     setCookie("letter", leaderboardLetter);
                     clearInterval(timerInterval);
+                    break;
                 }
             }
         }, 100);
@@ -84,8 +85,10 @@ function playSentence() {
     let date = new Date();
     keysSentence = 0;
     document.getElementById("menu").classList.remove("show");
+    document.getElementById("gameOverSentence").classList.remove("show");
     document.getElementById("gameSentence").classList.add("show");
     document.getElementById("sentence").innerHTML = "";
+    document.getElementById("speedSentence").innerText = "0.000 keys per min"
     let str = sentences[Math.floor(Math.random() * sentences.length)];
     str = str.split("");
     for (let i of str) {
@@ -127,12 +130,12 @@ function back() {
     document.getElementById("quitSentence").classList.remove("show");
     document.getElementById("leaderboard").classList.remove("show");
     document.getElementById("menu").classList.add("show");
-    document.getElementById("letterBest").innerText = (leaderboardLetter != []) ? leaderboardLetter[0].score : "/";
-    document.getElementById("sentenceBest").innerText = (leaderboardSentence != []) ? leaderboardSentence[0].score : "/";
+    document.getElementById("letterBest").innerText = (leaderboardLetter.length!=0) ? leaderboardLetter[0].score : "/";
+    document.getElementById("sentenceBest").innerText = (leaderboardSentence.length!=0) ? leaderboardSentence[0].score : "/";
 }
 
 function keydown(event) {
-    if (document.getElementById("gameLetter").classList.contains("show") && document.getElementById("quitLetter").classList.contains("show")) {
+    if (document.getElementById("gameLetter").classList.contains("show") && document.getElementById("quitLetter").classList.contains("show") && !document.getElementById("gameOverLetter").classList.contains("show")) {
         let s = scoreLetter;
         for (let i of document.querySelectorAll("#gameLetter div .key")) {
             if (i.innerText.toLowerCase() == event.key.toLowerCase()) {
@@ -150,12 +153,12 @@ function keydown(event) {
             document.getElementById("finalScoreLetter").innerText = scoreLetter.toFixed(1);
             document.getElementById("gameOverLetter").classList.add("show");
             leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
-            leaderboardLetter.sort(function (a, b) { return a - b });
+            leaderboardLetter.sort(function (a, b) { return a.score - b.score });
             leaderboardLetter.splice(10, 1);
             setCookie("letter", leaderboardLetter);
             clearInterval(timerInterval);
         }
-    } else if (document.getElementById("gameSentence").classList.contains("show") && document.getElementById("quitSentence").classList.contains("show")) {
+    } else if (document.getElementById("gameSentence").classList.contains("show") && document.getElementById("quitSentence").classList.contains("show") && !document.getElementById("gameOverSentence").classList.contains("show")) {
         for (let x of document.getElementById("sentence").childNodes) {
             if (!x.classList.contains("green")) {
                 if (x.innerText.toLowerCase() == event.key.toLowerCase()) {
@@ -167,7 +170,7 @@ function keydown(event) {
                     document.getElementById("gameOverSentence").classList.add("show");
                     document.getElementById("finalScoreSentence").innerText = document.getElementById("speedSentence").innerText.replace(" keys per min", "")
                     leaderboardSentence[leaderboardSentence.length] = { "name": document.getElementById("name").value, "score": Number(document.getElementById("finalScoreSentence").innerText) };
-                    leaderboardSentence.sort(function (a, b) { return a - b });
+                    leaderboardSentence.sort(function (a, b) { return a.score - b.score });
                     leaderboardSentence.splice(10, 1);
                     setCookie("sentence", leaderboardSentence);
                 }
