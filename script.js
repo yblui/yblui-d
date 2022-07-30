@@ -11,24 +11,15 @@ const sentences = [
 ], alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
 function setCookie(name, value) {
-    let a = [];
-    for (let b of value) {
-        a[a.length] = JSON.stringify(b);
-    }
-    document.cookie = name + "=" + a.join(",") + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
+    document.cookie = name + "=" + JSON.stringify(value) + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
 }
 
 function getCookie(name) {
     let a = document.cookie.split(";");
-    let e = [];
     for (let b of a) {
         b = b.split("=");
         if (b[0] == name) {
-            let d = b[1].split(",");
-            for (let c of d) {
-                e[e.length] = JSON.parse(c);
-            }
-            return e;
+            return JSON.parse(b[1]);
         }
     }
     return null;
@@ -36,6 +27,7 @@ function getCookie(name) {
 var leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
 document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
 document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
+document.getElementById("name").value = (getCookie("name") != "") ? getCookie("name") : "";
 function timeConvert(time) {
     let h = ((Math.floor(time / 3600000) < 10) ? "0" : "") + Math.floor(time / 3600000) + ":"
     let m = ((Math.floor(time / 60000) % 60 < 10) ? "0" : "") + Math.floor(time / 60000) % 60 + ":";
@@ -85,7 +77,7 @@ function playLetter() {
                     document.getElementById("letterHeading").innerText = (leaderboardLetter.length == 0 || leaderboardLetter[0].score < scoreLetter) ? "You broke the record!" : "Game over!";
                     document.getElementById("gameOverLetter").classList.add("show");
                     leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
-                    leaderboardLetter.sort(function (a, b) { return a - b });
+                    leaderboardLetter.sort(function (a, b) { return b.score - a.score });
                     leaderboardLetter.splice(10, 1);
                     setCookie("letter", leaderboardLetter);
                     clearInterval(timerInterval);
@@ -174,7 +166,7 @@ function keydown(event) {
             document.getElementById("gameOverLetter").classList.add("show");
             document.getElementById("letterHeading").innerText = (leaderboardLetter.length == 0 || leaderboardLetter[0].score < scoreLetter) ? "You broke the record!" : "Game over!";
             leaderboardLetter[leaderboardLetter.length] = { "name": document.getElementById("name").value, "score": Number(scoreLetter.toFixed(1)) };
-            leaderboardLetter.sort(function (a, b) { return a.score - b.score });
+            leaderboardLetter.sort(function (a, b) { return b.score - a.score });
             leaderboardLetter.splice(10, 1);
             setCookie("letter", leaderboardLetter);
             clearInterval(timerInterval);
@@ -192,7 +184,7 @@ function keydown(event) {
                     document.getElementById("finalScoreSentence").innerText = document.getElementById("speedSentence").innerText.replace(" keys per min", "")
                     document.getElementById("sentenceHeading").innerText = (leaderboardSentence.length == 0 || leaderboardSentence[0].score < Number(document.getElementById("finalScoreSentence").innerText)) ? "You broke the record!" : "Congratulations!";
                     leaderboardSentence[leaderboardSentence.length] = { "name": document.getElementById("name").value, "score": Number(document.getElementById("finalScoreSentence").innerText) };
-                    leaderboardSentence.sort(function (a, b) { return a.score - b.score });
+                    leaderboardSentence.sort(function (a, b) { return b.score - a.score });
                     leaderboardSentence.splice(10, 1);
                     setCookie("sentence", leaderboardSentence);
                 }

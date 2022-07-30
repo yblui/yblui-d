@@ -14,7 +14,8 @@
         <div class="name">
             <label>
                 Your name:
-                <input type="text" id="name" placeholder="Enter your name here" />
+                <input type="text" id="name" placeholder="Enter your name here"
+                    onkeyup="setCookie('name',this.value);" />
             </label>
         </div>
         <h1>TYPER - TYPE AS FAST AS POSSIBLE</h1>
