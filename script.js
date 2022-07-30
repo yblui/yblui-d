@@ -18,7 +18,7 @@ function getCookie(name) {
     let a = document.cookie.split(";");
     for (let b of a) {
         b = b.split("=");
-        if (b[0] == name) {
+        if (b[0].trim() == name) {
             return JSON.parse(b[1]);
         }
     }
@@ -127,11 +127,11 @@ function viewLeaderboard() {
     document.getElementById("sentenceTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
     for (let i = 0; i < leaderboardLetter.length; i++) {
         let high = leaderboardLetter[0].score;
-        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + (leaderboardLetter[i].score - high).toFixed(1) + "</td>")
+        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + ((i == 0) ? ("-" + (leaderboardLetter[i].score - high).toFixed(1)) : "") + "</td>")
     }
     for (let i = 0; i < leaderboardSentence.length; i++) {
         let high = leaderboardSentence[0].score;
-        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + (leaderboardSentence[i].score - high).toFixed(3) + "</td>")
+        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + ((i == 0) ? ("-" + (leaderboardSentence[i].score - high).toFixed(3)) : "") + "</td>")
     }
 }
 
