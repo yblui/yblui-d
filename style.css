@@ -7,11 +7,12 @@ body>div:not(.show),
 @font-face {
     font-family: worldAthletics;
     src: url("WorldAthleticsHeadline.woff2");
+    font-display: swap;
 }
 
 html,
 body {
-    font-family: worldAthletics;
+    font-family: worldAthletics, sans-serif;
     background-color: #333;
     margin: 0;
     padding: 0;
@@ -41,21 +42,6 @@ h1 {
     max-width: 1000px;
     padding: 10px;
     margin: 3px;
-}
-
-.grid {
-    display: inline-block;
-    background-color: #111;
-    color: white;
-    padding: 10px;
-    font-size: 20px;
-    margin: 3px;
-    border: none;
-}
-
-.large {
-    width: calc(100% - 62px);
-    max-width: 964px;
 }
 
 .bottom {
@@ -176,23 +162,6 @@ input {
     outline: none;
 }
 
-.small {
-    width: 65px;
-}
-
-.big {
-    width: 209px;
-    text-align: right;
-}
-
-.medium {
-    width: 494px;
-}
-
-.fill {
-    width: 862px;
-}
-
 .quit {
     position: absolute;
     top: 10px;
@@ -226,31 +195,31 @@ input {
 
 td,
 th {
-    height: 44px;
-    padding: 3px;
+    height: 40px;
+    padding: 10px;
     background: #111;
 }
 
 td:first-of-type,
 th:first-of-type {
-    width: 44px;
+    width: 40px;
 }
 
 td:nth-of-type(2),
 th:nth-of-type(2) {
-    width: 442px;
+    width: 440px;
 }
 
 #leaderboard table td:nth-of-type(3),
 #leaderboard table td:nth-of-type(4),
 #leaderboard table th:nth-of-type(3),
 #leaderboard table th:nth-of-type(4) {
-    width: 254px;
+    width: 230px;
 }
 
 #menu table td:nth-of-type(3),
 #menu table th:nth-of-type(3) {
-    width: 514px;
+    width: 480px;
 }
 
 #menu table td:nth-of-type(3),
@@ -259,6 +228,27 @@ th:nth-of-type(2) {
 #leaderboard table td:nth-of-type(3),
 #leaderboard table td:nth-of-type(4) {
     text-align: center;
+}
+
+#gameOverLetter table th,
+#gameOverSentence table th {
+    width: 294px;
+    text-align: center;
+}
+
+#gameOverLetter table tr:nth-of-type(2) td,
+#gameOverSentence table tr:nth-of-type(2) td {
+    width: 494px;
+    text-align: center;
+}
+
+.score th {
+    width: 100px;
+    text-align: center;
+}
+
+.score td {
+    width: 180px;
 }
 
 th {
@@ -276,4 +266,8 @@ td {
 #gameOverLetter.show+.score,
 #gameOverSentence.show+.score {
     display: none;
+}
+
+.tag{
+    
 }

@@ -6,6 +6,7 @@
     <title>Yblui-d Typer</title>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yblui-d typer" />
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
 
@@ -49,23 +50,32 @@
         </div>
         <div id="gameOverLetter">
             <h1 id="letterHeading">Game over!</h1>
-            <div class="grid small">Score</div>
-            <div id="finalScoreLetter" class="grid fill"></div>
-            <br />
-            <button onclick="playLetter();" class="grid medium">Retry</button><button onclick="back();"
-                class="grid medium">Back to Homepage</button>
-            <br />
+            <table>
+                <tr>
+                    <th>Score</th>
+                    <td colspan="2" id="finalScoreLetter"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" onclick="playLetter();">Retry</td>
+                    <td onclick="back();">Back to Homepage</td>
+                </tr>
+            </table>
             <div class="bottom">YBLUI-D</div>
         </div>
         <div class="score">
             <div class="name">
                 LETTER MODE
             </div>
-            <div class="grid small">Score</div>
-            <div id="scoreLetter" class="grid big">0</div>
-            <br />
-            <div class="grid small">Lives</div>
-            <div id="livesLetter" class="grid big">3</div>
+            <table>
+                <tr>
+                    <th>Score</th>
+                    <td id="scoreLetter"></td>
+                </tr>
+                <tr>
+                    <th>Lives</th>
+                    <td id="livesLetter"></td>
+                </tr>
+            </table>
         </div>
         <button onclick="back();" class="quit" id="quitLetter">Quit</button>
         <br />
@@ -124,20 +134,28 @@
         </div>
         <div id="gameOverSentence">
             <h1 id="sentenceHeading">Congratulations!</h1>
-            <div class="grid small">Score</div>
-            <div id="finalScoreSentence" class="grid fill"></div>
-            <br />
-            <button onclick="playSentence();" class="grid medium">Retry</button><button onclick="back();"
-                class="grid medium">Back to Homepage</button>
-            <br />
+            <table>
+                <tr>
+                    <th>Score</th>
+                    <td colspan="2" id="finalScoreSentence"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" onclick="playSentence();">Retry</td>
+                    <td onclick="back();">Back to Homepage</td>
+                </tr>
+            </table>
             <div class="bottom">YBLUI-D</div>
         </div>
         <div class="score">
             <div class="name">
                 SENTENCE MODE
             </div>
-            <div class="grid small">Speed</div>
-            <div id="speedSentence" class="grid big">0 keys per min</div>
+            <table>
+                <tr>
+                    <th>Speed</th>
+                    <td id="speedSentence"></td>
+                </tr>
+            </table>
         </div>
         <p class="light">Type the sentence below:</p>
         <p id="sentence"></p>
