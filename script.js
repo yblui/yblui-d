@@ -1,8 +1,3 @@
-/*TODO: 
-1.pb
-2.table
-*/
-
 const sentences = [
     "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.",
     "You've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.",
@@ -130,13 +125,24 @@ function viewLeaderboard() {
     document.getElementById("leaderboard").classList.add("show");
     document.getElementById("letterTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
     document.getElementById("sentenceTable").innerHTML = "<tr><th>No.</th><th>Name</th><th>Score</th><th>Gap</th></tr>"
+    let personA = [], personB = [];
     for (let i = 0; i < leaderboardLetter.length; i++) {
         let high = leaderboardLetter[0].score;
-        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + leaderboardLetter[i].score + "</td><td>" + ((i != 0) ? ((leaderboardLetter[i].score - high).toFixed(1)) : "") + "</td>")
+        let isPb = false;
+        if (!personA.includes(leaderboardLetter[i].name)) {
+            isPb = true;
+            personA.push(leaderboardLetter[i].name);
+        }
+        document.getElementById("letterTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardLetter[i].name + "</td><td>" + ((isPb) ? "<span style='vertical-align:-10px'>" : "") + leaderboardLetter[i].score + ((isPb) ? "</span><span class='tag'>PB</span>" : "") + "</td><td>" + ((i != 0) ? ((leaderboardLetter[i].score - high).toFixed(1)) : "") + "</td>")
     }
     for (let i = 0; i < leaderboardSentence.length; i++) {
         let high = leaderboardSentence[0].score;
-        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + leaderboardSentence[i].score + "</td><td>" + ((i != 0) ? ((leaderboardSentence[i].score - high).toFixed(3)) : "") + "</td>")
+        let isPb = false;
+        if (!personB.includes(leaderboardSentence[i].name)) {
+            isPb = true;
+            personB.push(leaderboardSentence[i].name);
+        }
+        document.getElementById("sentenceTable").innerHTML += ("<tr><td>" + (i + 1) + "</td><td>" + leaderboardSentence[i].name + "</td><td>" + ((isPb) ? "<span style='vertical-align:-10px'>" : "") + leaderboardSentence[i].score + ((isPb) ? "</span><span class='tag'>PB</span>" : "") + "</td><td>" + ((i != 0) ? ((leaderboardSentence[i].score - high).toFixed(3)) : "") + "</td>")
     }
 }
 
