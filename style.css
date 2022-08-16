@@ -274,3 +274,7 @@ td {
     color: black;
     padding: 10px;
 }
+
+caption{
+    display: none;
+}
