@@ -9,7 +9,7 @@ const sentences = [
     "Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten.",
     "The opposite of love is not hate, it's indifference. The opposite of art is not ugliness, it's indifference. The opposite of faith is not heresy, it's indifference. And the opposite of life is not death, it's indifference."
 ], alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
+let scoreLetter = 0, livesLetter = 3, keysSentence = 0, sentenceInterval, timerInterval, timeLetter, letterInterval;
 function setCookie(name, value) {
     document.cookie = name + "=" + JSON.stringify(value) + "; expires=Sat, 31 Dec 2050 12:00:00 GMT"
 }
@@ -24,7 +24,7 @@ function getCookie(name) {
     }
     return null;
 }
-var leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
+let leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leaderboardSentence = (getCookie("sentence")) ? getCookie("sentence") : [];
 document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
 document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
 document.getElementById("name").value = (getCookie("name") != "") ? getCookie("name") : "";
@@ -88,7 +88,7 @@ function playLetter() {
     }, 3000);
 
     for (let e of document.querySelectorAll("#gameLetter div .key")) {
-        e.innerText = alphabet[Math.floor(Math.random() * 26)];
+        e.innerText = alphabet[Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 26)];
     }
 }
 
@@ -101,7 +101,7 @@ function playSentence() {
     document.getElementById("gameSentence").classList.add("show");
     document.getElementById("sentence").innerHTML = "";
     document.getElementById("speedSentence").innerText = "0.000 keys per min"
-    let str = sentences[Math.floor(Math.random() * sentences.length)];
+    let str = sentences[Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * sentences.length)];
     str = str.split("");
     for (let i of str) {
         document.getElementById("sentence").innerHTML += ("<span class='keySentence'>" + i + "</span>");
@@ -162,7 +162,7 @@ function keydown(event) {
         let s = scoreLetter;
         for (let i of document.querySelectorAll("#gameLetter div .key")) {
             if (i.innerText.toLowerCase() == event.key.toLowerCase()) {
-                i.innerText = alphabet[Math.floor(Math.random() * alphabet.length)];
+                i.innerText = alphabet[Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * alphabet.length)];
                 scoreLetter += Number(i.parentNode.getElementsByClassName("timer")[0].innerText.replace("s", ""));
                 i.parentNode.getElementsByClassName("timer")[0].innerText = timeLetter.toFixed(1) + "s"
             }

@@ -23,7 +23,7 @@ body {
 }
 
 button {
-    font-family: worldAthletics;
+    font-family: worldAthletics, sans-serif;
     text-align: left;
 }
 
@@ -158,7 +158,7 @@ h1 {
 input {
     border: none;
     background-color: transparent;
-    font-family: worldAthletics;
+    font-family: worldAthletics, sans-serif;
     outline: none;
 }
 
