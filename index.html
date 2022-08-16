@@ -22,9 +22,9 @@
         <h1>TYPER - TYPE AS FAST AS POSSIBLE</h1>
         <table>
             <tr>
-                <th>No.</th>
-                <th>&nbsp;</th>
-                <th>Best</th>
+                <th scope="col">No.</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Best</th>
             </tr>
             <tr>
                 <td>1</td>
@@ -52,7 +52,7 @@
             <h1 id="letterHeading">Game over!</h1>
             <table>
                 <tr>
-                    <th>Score</th>
+                    <th scope="row">Score</th>
                     <td colspan="2" id="finalScoreLetter"></td>
                 </tr>
                 <tr>
@@ -68,11 +68,11 @@
             </div>
             <table>
                 <tr>
-                    <th>Score</th>
+                    <th scope="row">Score</th>
                     <td id="scoreLetter"></td>
                 </tr>
                 <tr>
-                    <th>Lives</th>
+                    <th scope="row">Lives</th>
                     <td id="livesLetter"></td>
                 </tr>
             </table>
@@ -136,7 +136,7 @@
             <h1 id="sentenceHeading">Congratulations!</h1>
             <table>
                 <tr>
-                    <th>Score</th>
+                    <th scope="row">Score</th>
                     <td colspan="2" id="finalScoreSentence"></td>
                 </tr>
                 <tr>
@@ -152,7 +152,7 @@
             </div>
             <table>
                 <tr>
-                    <th>Speed</th>
+                    <th scope="row">Speed</th>
                     <td id="speedSentence"></td>
                 </tr>
             </table>
@@ -165,21 +165,21 @@
         <h1>Leaderboard - Letter Mode</h1>
         <table id="letterTable">
             <tr>
-                <th>No.</th>
-                <th>Name</th>
-                <th>Score</th>
-                <th>Gap</th>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Score</th>
+                <th scope="col">Gap</th>
             </tr>
         </table>
         <div class="bottom">YBLUI-D</div>
         <h1>Leaderboard - Sentence Mode</h1>
         <table id="sentenceTable">
-            <th>
-            <td>No.</td>
-            <td>Name</td>
-            <td>Score</td>
-            <td>Gap</td>
-            </th>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Score</th>
+                <th scope="col">Gap</th>
+            </tr>
         </table>
         <div class="bottom">YBLUI-D</div>
     </div>
