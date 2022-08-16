@@ -17,9 +17,9 @@ function setCookie(name, value) {
 function getCookie(name) {
     let a = document.cookie.split(";");
     for (let b of a) {
-        b = b.split("=");
-        if (b[0].trim() == name) {
-            return JSON.parse(b[1]);
+        let c = b.split("=");
+        if (c[0].trim() == name) {
+            return JSON.parse(c[1]);
         }
     }
     return null;
@@ -28,6 +28,24 @@ let leaderboardLetter = (getCookie("letter")) ? getCookie("letter") : [], leader
 document.getElementById("letterBest").innerText = (leaderboardLetter.length != 0) ? leaderboardLetter[0].score : "/";
 document.getElementById("sentenceBest").innerText = (leaderboardSentence.length != 0) ? leaderboardSentence[0].score : "/";
 document.getElementById("name").value = (getCookie("name") != "") ? getCookie("name") : "";
+for (let i = 0; i < 9; i++) {
+    let mainDiv = document.createElement("div");
+    mainDiv.classList.add("main");
+    let keySpan = document.createElement("span");
+    keySpan.classList.add("key");
+    mainDiv.appendChild(keySpan);
+    let brTag = document.createElement("br");
+    mainDiv.appendChild(brTag);
+    let timerSpan = document.createElement("span");
+    timerSpan.classList.add("timer");
+    mainDiv.appendChild(timerSpan);
+    document.getElementById("gameLetter").appendChild(mainDiv);
+    if ((i + 1) % 3 == 0) {
+        brTag = document.createElement("br");
+        document.getElementById("gameLetter").appendChild(brTag);
+    }
+}
+
 function timeConvert(time) {
     let h = ((Math.floor(time / 3600000) < 10) ? "0" : "") + Math.floor(time / 3600000) + ":"
     let m = ((Math.floor(time / 60000) % 60 < 10) ? "0" : "") + Math.floor(time / 60000) % 60 + ":";
